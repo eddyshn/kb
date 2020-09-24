@@ -112,7 +112,7 @@ for (let i=1; i<=5; i++) {
 
 > 实际情况是尽管循环中的五个函数是在各个迭代中分别定义的，但是它们都被封闭在一个共享的全局作用域中， 因此实际上只有一个 i  
 
-# 模块
+## 模块
 
 ```javascript
 var MyLibrary = {
@@ -141,3 +141,249 @@ foo.doSomething(); // cool
 foo.doAnother(); // 1 ! 2 ! 3
 ```
 
+
+
+模拟私有方法
+
+```javascript
+var Counter = (function() {
+  var privateCounter = 0;
+  function changeBy(val) {
+    privateCounter += val;
+  }
+  return {
+    increment: function() {
+      changeBy(1);
+    },
+    decrement: function() {
+      changeBy(-1);
+    },
+    value: function() {
+      return privateCounter;
+    }
+  }   
+})();
+```
+
+
+
+# this
+
+```javascript
+function foo(num) {
+    console.log( "foo: " + num );
+    this.count++;
+} 
+
+foo.count = 0;
+var i;
+for (i=0; i<10; i++) {
+    if (i > 5) {
+        foo( i );
+    }
+}
+console.log(foo.count);
+```
+
+
+
+```
+var Person = function(){};
+var p = new Person();
+```
+
+
+
+> new的过程拆分成以下三步：
+> (1) var p={}; 也就是说，初始化一个对象p
+> (2) p.__proto__ = Person.prototype;
+> (3) Person.call(p); 也就是说构造p，也可以称之为初始化p
+
+
+
+```javascript
+var a = 2;
+var o = { a: 3, foo: foo2 };
+var p = { a: 4 };
+o.foo(); // 3
+// 赋值表达式 p.foo = o.foo 的返回值是目标函数的引用， 因此调用位置是 foo() 而不是 p.foo() 或者 o.foo()。 根据我们之前说过的， 这里会应用默认绑定。
+(p.foo = o.foo)();//2
+
+var f = o.foo;
+f();//2
+```
+
+
+
+```java
+function foo() {
+// 返回一个箭头函数
+    return (a) => {
+//this 继承自 foo()
+        console.log( this.a );
+    };
+}
+var obj1 = {
+    a:2
+};
+var obj2 = {
+    a:3
+};
+var bar = foo.call( obj1 );
+bar.call( obj2 ); // 2, 不是 3 ！
+```
+
+> foo() 内部创建的箭头函数会捕获调用时 foo() 的 this。 由于 foo() 的 this 绑定到 obj1，
+> bar（ 引用箭头函数） 的 this 也会绑定到 obj1， 箭头函数的绑定无法被修改。（new 也不
+> 行！ ）  
+
+
+
+```javascript
+function foo() {
+    var self = this; // lexical capture of this
+    setTimeout( function(){
+        console.log( self.a );
+    }, 100 );
+}
+var obj = {
+    a: 2
+};
+foo.call( obj ); // 2
+
+function foo() {
+    //var self = this; // lexical capture of this
+    setTimeout( function(){
+        //console.log( self.a );
+        console.log( this.a );
+    }.bind(this), 100 );
+}
+var obj = {
+    a: 2
+};
+foo.call( obj ); // 2
+
+function foo() {
+    //var self = this; // lexical capture of this
+    setTimeout( ()=>{
+        //console.log( self.a );
+        console.log( this.a );
+    }, 100 );
+}
+var obj = {
+    a: 2
+};
+foo.call( obj ); // 2
+
+```
+
+# 对象
+
+```javascript
+var myObject = {
+    a: 2
+};
+myObject.a; // 2
+myObject["a"]; // 2
+
+var myObject = { };
+myObject[true] = "foo";
+myObject[3] = "bar";
+myObject[myObject] = "baz";
+myObject["true"]; // "foo"
+myObject["3"]; // "bar"
+myObject["[object Object]"]; // "baz"
+
+
+```
+
+> .a 语法通常被称为“属性访问”， ["a"] 语法通常被称为“键访问”  
+>
+> 实际上它们访问的是同一个位置， 并且会返回相同的值 2  
+>
+> 在对象中， 属性名永远都是字符串  
+
+```javascript
+var array = [];
+array["a"] = "hello";
+array["b"] = "world";
+array["c"] = "yes";
+console.log("length: " + array.length);//0
+
+```
+
+## 存在性
+
+in 操作符会检查属性是否在对象及其 [[Prototype]] 原型链中  
+
+hasOwnProperty(..) 只会检查属性是否在 myObject 对象中  
+
+
+
+|                | 可枚举 | 不可枚举 | 对象中 | 原型链中 |
+| :------------: | :----: | -------- | :----: | :------: |
+|     for in     |   x    |          |   x    |    x     |
+|       in       |   x    | x        |   x    |    x     |
+|  Object.keys   |   x    |          |   x    |          |
+| hasOwnProperty |   x    | x        |   x    |          |
+
+
+
+## put
+
+```javascript
+
+var anotherObject = {
+    a:2
+};
+var myObject = Object.create( anotherObject );
+anotherObject.a; // 2
+myObject.a; // 2
+anotherObject.hasOwnProperty( "a" ); // true
+myObject.hasOwnProperty( "a" ); // false
+myObject.a++; // 隐式屏蔽！
+anotherObject.a; // 2
+myObject.a; // 3
+myObject.hasOwnProperty( "a" ); // true
+```
+
+
+
+## mixin  
+
+模拟类的复制行为 
+
+```javascript
+function mixin( sourceObj, targetObj ) {
+    for (var key in sourceObj) {
+// 只会在不存在的情况下复制
+        if (!(key in targetObj)) {
+            targetObj[key] = sourceObj[key];
+        }
+    }
+    return targetObj;
+}
+var Vehicle = {
+    engines: 1,
+    ignition: function() {
+        console.log( "Turning on my engine." );
+    },
+    drive: function() {
+        this.ignition();
+        console.log( "Steering and moving forward!" );
+    }
+};
+var Car = mixin( Vehicle, {
+    wheels: 4,
+    drive: function() {
+        Vehicle.drive.call( this );
+        console.log(
+            "Rolling on all " + this.wheels + " wheels!"
+        );
+    }
+} )
+```
+
+# prototype
+
+![image-20200922101100018](you-dont-know-js-01.assets/001.png)

@@ -75,3 +75,71 @@ for (let i=1; i<=5; i++) {
 }
 ```
 
+
+
+模拟私有方法
+
+```js
+var Counter = (function() {
+  var privateCounter = 0;
+  function changeBy(val) {
+    privateCounter += val;
+  }
+  return {
+    increment: function() {
+      changeBy(1);
+    },
+    decrement: function() {
+      changeBy(-1);
+    },
+    value: function() {
+      return privateCounter;
+    }
+  }   
+})();
+```
+
+# this
+
+```javascript
+function foo() {
+console.log( this.a );
+}
+var obj = {
+a: 2,
+foo: foo
+};
+var bar = obj.foo; // 函数别名！
+var a = "oops, global"; // a 是全局对象的属性
+bar(); // "oops, global
+
+
+var a = 2;
+var o = { a: 3, foo: foo2 };
+var p = { a: 4 };
+o.foo(); // 3
+// 赋值表达式 p.foo = o.foo 的返回值是目标函数的引用， 因此调用位置是 foo() 而不是 p.foo() 或者 o.foo()。 根据我们之前说过的， 这里会应用默认绑定。
+(p.foo = o.foo)();//2
+
+var f = o.foo;
+f();//2
+
+
+
+function foo() {
+// 返回一个箭头函数
+    return (a) => {
+//this 继承自 foo()
+        console.log( this.a );
+    };
+}
+var obj1 = {
+    a:2
+};
+var obj2 = {
+    a:3
+};
+var bar = foo.call( obj1 );
+bar.call( obj2 ); // 2, 不是 3 ！
+```
+
