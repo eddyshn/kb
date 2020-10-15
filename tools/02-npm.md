@@ -18,6 +18,8 @@ npm list --depth=0
 npm list <package-name>
 #查看包在仓库的最新版本
 npm view <package-name> version
+#查看包在仓库的所有版本
+npm view <package-name> versions
 ```
 
 # 更新软件包
