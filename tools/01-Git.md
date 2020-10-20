@@ -10,7 +10,7 @@
 
 # 分支管理
 
-1. 创建分支
+## 创建分支
 
 ```
 git branch <branch-name>
