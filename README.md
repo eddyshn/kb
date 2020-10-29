@@ -1,8 +1,10 @@
-# 这是我的个人知识库，记录日常开发中的点滴
-
-# This my Knowledge Bases to record my daily development
+# javascript
 
 
 
+# angular + cordova
 
+- [环境配置](02-angular-cordova/00 - environment.md)
+- [cordova CLI](02-angular-cordova/01 - cordova-CLI.md)
 
+- [创建cordova插件](02-angular-cordova/03 - create-plugin.md)
