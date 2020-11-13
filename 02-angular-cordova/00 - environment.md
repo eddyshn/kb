@@ -23,6 +23,8 @@ source ~/.bash_profile
 
 brew install gradle
 brew info gradle
+
+# ~/.gradle/wrapper/dists
 ```
 
 
@@ -36,3 +38,4 @@ download from [https://gradle.org/releases/](https://gradle.org/releases/)
 unzip to a folder
 
 add to **gradle-x\bin** to PATH and **gradle-x** to **GRADLE_HOME**
+
