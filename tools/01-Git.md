@@ -15,6 +15,7 @@
 ```
 git branch <branch-name>
 git checkout -b <branch-name>
+git checkout -b <new-branch> origin/<source-branch>
 ```
 
 > `git checkout`命令加上`-b`参数表示创建并切换，相当于以下两条命令
