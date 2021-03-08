@@ -239,6 +239,16 @@ git push
 
 
 
+# blame
+
+```bash
+git blame 文件名 | grep "查找词"
+```
+
+
+
+
+
    **场景一： 本地与远程同一分支提交历史不一致， push时失败**
 
 `git pull`
@@ -289,3 +299,25 @@ git config --global core.safecrlf warn
 > ```
 >
 > 
+
+# git clean
+
+```
+git clean -nxfd
+git clean -nf
+git clean -nfd
+```
+
+**墙裂建议加上 -n 参数来先看看会删掉哪些文件，防止重要文件被误删**
+
+首先确认要删除的文件
+
+**git clean -fd -n**
+
+如果以上命令给出的文件列表是你想删除的， 那么接下来执行
+
+git clean -f -d或者git clean -fd就可以了。
+
+其中-f表示文件 -d表示目录, 如果还要删除.gitignore中的文件那么再加上-x (-x对我来说没用）
+
+如果git submodule中也存在需要删除的文件那么需要再加个-f， 变成git clean -dff
