@@ -49,3 +49,10 @@ systemctl enable docker
 #关闭服务
 systemctl stop docker
 ```
+
+# 创建连接
+
+```bash
+ln -s ~/Documents/github/kb ~/alias/
+```
+
