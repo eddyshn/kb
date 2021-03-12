@@ -21,6 +21,14 @@ export PATH
 
 source ~/.bash_profile
 
+####################################.zshrc####################################
+xport ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+export JAVA_HOME=$(/usr/libexec/java_home)
+
+
 brew install gradle
 brew info gradle
 
