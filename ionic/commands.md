@@ -28,6 +28,8 @@ compile编译平台相关代码
 
 `ionic start blankApp blank`
 
+```chrome://inspect/#devices```
+
 ```bash
 # list the emulators and devices
 ionic cordova run ios --list
