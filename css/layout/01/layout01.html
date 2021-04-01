@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="layout01.css">
+    <style type="text/css"></style>
+</head>
+<body>
+<div id="wrapper">
+    <header>
+        <h1>A Fixed-Width Layout</h1>
+    </header>
+    <nav>
+        <div class="inner">
+            <li><a href="">link1</a></li>
+            <li><a href="">link2</a></li>
+            <li><a href="">link3</a></li>
+        </div>
+    </nav>
+    <article>
+        <div class="inner">
+            通过把三个浮动容器的总宽度设定为恰好等于外包装的宽度（ 150 +
+            600 + 210 = 960），就有了三栏布局的框架。就用这种办法，我可以想加多少栏就加
+            多少栏，只要它们的总宽度等于外包装的宽度即可。当然，多栏布局通常都有与布
+            局同宽的页眉和页脚，下面我们就来添加。
+            浮动栏并设定栏宽，但不给任何内容元素设
+            定宽度。要让内容元素扩展以填充它们的父元素——内部 div。这样，只要简单地设
+            定内部 div 的外边距和内边距，就可以让它们以及它们包含的内容与栏边界保持一
+            定距离
+        </div>
+    </article>
+    <aside>
+        <div class="inner">
+            接下来，我们要调整 article 这一栏的宽度，为第三栏腾出空间
+            接下来，我们要调整 article 这一栏的宽度，为第三栏腾出空间
+            与其为容器中的元素添加外边距，不如在栏中再添加一个没有宽度的 div，
+            让它包含所有内容元素，然后再给这个 div 应用边框和内边距
+        </div>
+    </aside>
+    <footer>为页脚应用 clear:both（ clear:left 效果也一样，因为这里只有左浮动元素），就可
+        以阻止它向上移动，不让它超过浮动元素的下方边界。这么一条简单的规则，就可
+        以保证页脚始终都位于最长栏的下方。</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+div#main_wrapper {
+    min-width: 6000px;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: url("../images/blue.jpg") repeat-y #eee;
+}
+
+header {
+    padding:5px 10px;
+    background:#3f7ccf;
+}

@@ -72,3 +72,4 @@ npm config get prefix
 npm cache clean --force
 ```
 
+npm config ls -l
