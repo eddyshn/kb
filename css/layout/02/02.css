@@ -2,7 +2,7 @@
 body {font:1em helvetica, arial, sans-serif;}
 div#main_wrapper {
     min-width: 600px;
-    max-width: 1100px;
+    max-width: 1800px;
     margin: 0 auto;
     background: url("../images/blue.jpg") repeat-y purple;
 }
