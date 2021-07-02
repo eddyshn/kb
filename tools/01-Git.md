@@ -127,7 +127,7 @@ git reset
 git reset --mixed
 git reset HEAD
 git reset HEAD <file>
-
+git push --force
 ```
 
 > reset 不加参数(mixed)：保留工作目录，并清空暂存区。也就是说，工作目录的修改、暂存区的内容以及由 **reset** 所导致的新的文件差异，都会被放进工作目录。简而言之，就是「把所有差异都混合（mixed）放在工作目录中」。
