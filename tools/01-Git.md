@@ -2,6 +2,26 @@
 
 
 
+# Git 设置
+
+## 设置用户名
+
+```bash
+git config --global user.name "Eddy Shan"
+# 查看用户名
+git config --global user.name
+```
+
+## 创建ssh key
+
+[link](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+
+```ba
+ssh-keygen -t ed25519 -C "eddy.shan@outlook.com"
+```
+
+
+
 # Push, Pull
 
 ```git push <远程主机名> <本地分支名>:<远程分支名```
